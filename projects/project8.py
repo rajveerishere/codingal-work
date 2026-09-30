@@ -67,18 +67,28 @@ print(bin(2))
 print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 print("1 for student ,10 for adult")
 code = int(input("enter the code with respect to your position :"))
+
 if code == 10 :
     print ("the apps you are using are \n all apps allowed")
+
 no_kid_app = ("game","shop","browser","youtube","social media")
+
 print(f"the apps avilable for you are \n{no_kid_app} and {apps_for_student}")
 
 if code == 1 :
     print(f"your position is{position}")
+    
     app_nono = input("enter another app name")
+
     if app_nono in (apps_for_student) :
+
         print (f"allow access to this app-{app_nono}")
+
     elif app_nono in (no_kid_app) :
+
+
         print("dont use this app kid")
+
     else:
         print("select an app from the permitted list next time")
 print (f"the apps selected are {selecapp},{app2},{adu_app1},{adu_app2},{adu_app3},{adu_app}")

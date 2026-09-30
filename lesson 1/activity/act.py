@@ -1,0 +1,8 @@
+print("hello python!")
+print("i am a beginner.")
+print(" i am rajveer")
+print("i like playing chess and games")
+print ("i am 15 yrs old approx")
+print("i live in india")
+print ("20-10 is")
+print(20- 10)

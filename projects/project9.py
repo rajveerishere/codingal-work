@@ -1,0 +1,7 @@
+print("welcome to power calculator !")
+x = int(input("please enter the base number :"))
+y = int(input("please enter the power number :"))
+print(f"The numbers are {x} raised to the power of {y}")
+print(f"The result is {x ** y}")
+b = bin(x**y)
+print(f"The binary representation of {x ** y} is {b}")

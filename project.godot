@@ -1,0 +1,21 @@
+; Engine target: Godot 4.3 stable (GDScript)
+; Main project entry point for the Velria milestone.
+config_version=5
+
+[application]
+config/name="Dystopia: Fueling Society — Velria"
+run/main_scene="res://scenes/velria.tscn"
+
+[display]
+window/size/viewport_width=1440
+window/size/viewport_height=900
+window/size/resizable=true
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+environment/defaults/default_clear_color=Color(0.012, 0.02, 0.045, 1)
+
+[physics]
+3d/default_gravity=9.8

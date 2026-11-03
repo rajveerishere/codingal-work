@@ -1,31 +1,26 @@
-# Dystopia: Fueling Society — Velria checkpoint
+# Dystopia: Fueling Society — Earth grid recovery prototype
 
-A procedural 3D Godot 4 prototype for the **blackout → restart → recovery → line failure → reroute** scenario. This repository previously contained unrelated Python learning exercises; the game is added as a new project in new files without modifying those scripts.
+The project now boots into a walkable, procedural 3D Earth field in Godot 4.3 (Compatibility renderer). This iteration keeps the previous orbital Velria scene available at `scenes/velria.tscn`, and adds a first-person repair-and-economy opening loop.
 
-## Run locally
+## Run and controls
 
-- Engine target: **Godot 4.3 stable** (GDScript; Compatibility renderer).
-- Open `project.godot` in Godot 4 and press **F6/F5** (or open the project and run the main scene).
-- Windows command line from this directory: `godot.exe --path .` (if Godot is on `PATH`, use `godot --path .`).
-- Headless smoke checks: `godot.exe --headless --path . --script res://tests/simulation_smoke.gd`.
+Open `project.godot` in Godot 4.3 and press **F6/F5**. Windows command: `godot.exe --path .`. Move with **WASD**, look with the mouse, **Shift** to sprint, **Space** to jump. Press **E** or click the field-order button to command the maintenance robot, start the repaired plant, or purchase a grid upgrade. **Esc** releases the mouse; click to recapture it.
 
-## Play
+Headless simulation check: `godot.exe --headless --path . --script res://tests/earth_repair_smoke.gd`.
 
-Click the fission plant in the orbital map and press **RESTART PLANT**. It starts dark at **0 / 40 MW**. Commands are accepted while paused but do not apply until an unpaused tick; Space or the HUD button toggles pause. The primary line automatically trips **8 simulation ticks after the first restoration tick** (scheduled simulation time, not wall-clock time). Select the standby route and enable it. It delivers **25 / 40 MW**, explicitly reporting the **15 MW deficit**.
+## Opening gameplay
 
-Drag with the right mouse button to orbit, use the wheel to zoom, click map objects to select, and press **F** to refocus the camera on the selected object. Link color is paired with telemetry status: green energized, amber idle/enabled, gray disabled, red failed. The settlement's windows light when power arrives.
+Explore the recovery zone: a rolling green landscape, service road, scattered trees, government grid office, damaged fission plant, and maintenance robot. Four broken plant/grid systems are marked in red. Get near the plant and dispatch the robot one repair at a time; each job takes two fixed simulation ticks. Once all four are repaired, start the plant. The government contract buys delivered electricity, credits accumulate, and a 250-credit upgrade increases generation and transmission capacity by 15 MW. Initial plant output is 40 MW; the line carries 25 MW to a 35 MW government demand, making the upgrade useful.
 
-## Foundation and extension points
+## Project structure and extension points
 
-- `scripts/simulation/velria_simulation.gd`: scene-independent fixed-tick clock, pause/speed state, validated queued commands, stable IDs, deterministic fixture dispatch, snapshot, and simulation events. The fixture prioritizes primary then standby link; replace `_recalculate_delivery()` with the future dispatch module while preserving snapshots and command contracts.
-- `scripts/simulation/campaign_data.gd`: ordered editable five-system campaign gates. New campaigns unlock Velria only; subsequent entries unlock sequentially by configured level **or** achievement.
-- `scripts/presentation/velria_scene.gd`: procedural meshes/materials, map selection, context actions, HUD, camera, and visual sync. Add detailed scene/UI features here without moving simulation ownership into nodes.
-- `tests/simulation_smoke.gd`: headless regression checks for the scenario and sample campaign gates.
+- `scripts/presentation/earth_repair_scene.gd`: procedural Earth terrain/trees/site/plant/robot, first-person movement and camera, HUD, interaction, and visual sync.
+- `scripts/simulation/earth_repair_simulation.gd`: fixed-tick robot jobs, repair/start/upgrade commands, MW grid snapshot, and government contract credits; independent of scene nodes and frame rate.
+- `tests/earth_repair_smoke.gd`: headless regression for repair jobs, startup, payment, and upgrade.
+- `scenes/velria.tscn` and `scripts/presentation/velria_scene.gd`: previous orbital prototype remains available and can be restored as the main scene by changing `run/main_scene`.
 
-Later generation and storage modules should attach as simulation-side state/rules alongside `velria_simulation.gd`, exposing generation and stored energy (MW and MWh respectively) through the snapshot. General dispatch replaces only the fixture delivery rule. Progression/save services should consume campaign data and simulation events; Vorten Dyson construction belongs in a later system-specific scene/module.
+Next additions: terrain chunks/biomes and collision-aware navigation; multiple repair robots with assigned maintenance routes; plant inspection/minigames and failure states; additional settlements, plants, grid topology, contracts, upgrades, save/progression. Keep dispatch, generation, storage and money rules in simulation scripts, and keep their snapshots independent of the 3D presentation.
 
-## Handoff / verification status
+## Verification
 
-Files added: `project.godot`, `scenes/velria.tscn`, `scripts/simulation/velria_simulation.gd`, `scripts/simulation/campaign_data.gd`, `scripts/presentation/velria_scene.gd`, `tests/simulation_smoke.gd`, and this README.
-
-This environment does not provide a Windows desktop or Godot executable, so no local engine launch, parser run, or interactive playthrough has been performed. The smoke-test script is provided but remains to be run locally; acceptance checks requiring the 3D renderer, picking, camera navigation, and visuals also require a Godot playthrough. Run the commands above and report any engine errors before treating this checkpoint as verified.
+The project and automated smoke script are provided. This environment has no local Windows desktop or Godot executable, so I have not run Godot's parser, the headless test, or a playthrough. Please run the commands above in Godot 4.3 and report engine errors before treating the scene as verified. First-person traversal, procedural visuals and interaction need an in-engine playtest.

@@ -1,10 +1,10 @@
 ; Engine target: Godot 4.3 stable (GDScript)
-; Main project entry point for the Velria milestone.
+; Main project entry point for the walkable Earth repair prototype.
 config_version=5
 
 [application]
-config/name="Dystopia: Fueling Society — Velria"
-run/main_scene="res://scenes/velria.tscn"
+config/name="Dystopia: Fueling Society — Earth Grid Recovery"
+run/main_scene="res://scenes/earth_repair.tscn"
 
 [display]
 window/size/viewport_width=1440
@@ -15,7 +15,7 @@ window/size/resizable=true
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/default_filters/use_nearest_mipmap_filter=false
-environment/defaults/default_clear_color=Color(0.012, 0.02, 0.045, 1)
+environment/defaults/default_clear_color=Color(0.42, 0.68, 0.88, 1)
 
 [physics]
 3d/default_gravity=9.8
